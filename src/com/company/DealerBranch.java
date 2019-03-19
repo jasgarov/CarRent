@@ -1,5 +1,7 @@
 package com.company;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 
 public class DealerBranch {
@@ -9,8 +11,8 @@ public class DealerBranch {
 
     private Manager topManager;
     private ArrayList <Car> fleet;
-    private ArrayList <RentContract> contracts;
     private CreateContract createContract;
+
 
     //write a method that checks with contract are past due
 
@@ -21,6 +23,23 @@ public class DealerBranch {
         this.phoneNum = phoneNum;
         this.topManager = topManager;
         createContract = new CreateContract(this);
+    }
+
+    public ArrayList<RentContract> checkIfCarIsOverdue(ArrayList<RentContract> contracts) {
+        ArrayList<RentContract> list = new ArrayList<RentContract>();
+        for (RentContract contract: contracts) {
+            if (Period.between(LocalDate.parse(contract.getDate()), LocalDate.now()).getDays() > contract.getDuration()
+                    && !contract.isCarReturned) {
+                contract.setCurrentFine(countFine(contract));
+                    list.add(contract);
+            }
+        }
+        return list;
+    }
+
+    private int countFine(RentContract contract) {
+        int fine = (Period.between(LocalDate.parse(contract.getDate()), LocalDate.now()).getDays() - contract.getDuration()) * 10;
+        return fine;
     }
 
     public void setTopManager(Manager topManager) {
@@ -36,6 +55,6 @@ public class DealerBranch {
     }
 
     public void createContract(int duration, Car car, Client client) {
-        contracts.add(createContract.newContract(duration, car, client));
+        CreateContract.getUniqueInstance().contracts.add(createContract.newContract(duration, car, client));
     }
 }

@@ -1,6 +1,9 @@
 package com.company;
 
+import java.rmi.Remote;
 import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
 
 public class RentContract {
     //date, duration, Car, Client, Manager, Insurance, DealerBranch, Payment
@@ -13,6 +16,7 @@ public class RentContract {
     private String dealerBranchName;
     private double payment;
     boolean isCarReturned;
+    private int currentFine;
 
     public void showInfo() {
         System.out.println("Date: " + date);
@@ -23,8 +27,25 @@ public class RentContract {
         System.out.println("Insurance: " + insurance.getAmountInsured());
         System.out.println("Branch: "  + dealerBranchName);
         System.out.println("Payment: " + payment);
+        System.out.println("Status: " );
+            if(isCarReturned)
+                System.out.println("car is returned.");
+            else
+                System.out.println("car is still rented");
+    }
 
 
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setCurrentFine(int currentFine) {
+        this.currentFine = currentFine;
+    }
+
+    public int getCurrentFine() {
+        return currentFine;
     }
 
     public Insurance getInsurance(){
@@ -63,5 +84,7 @@ public class RentContract {
         this.payment = payment;
     }
 
-
+    public int getDuration() {
+        return duration;
+    }
 }

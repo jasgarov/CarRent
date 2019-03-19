@@ -1,10 +1,12 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CreateContract {
     private RentContract rentContract;
     private DealerBranch dealerBranch;
+    public static ArrayList<RentContract> contracts;
 
     CreateContract(DealerBranch dealerBranch) {
         this.dealerBranch = dealerBranch;

@@ -10,14 +10,20 @@ public class CreateContract {
         this.dealerBranch = dealerBranch;
     }
 
+    private volatile static CreateContract uniqueInstance;
 
-    /**
-     *
-     * @param duration -dfasdfsadfasdf
-     * @param car
-     * @param client
-     * @return
-     */
+
+    private CreateContract() {
+        uniqueInstance = new CreateContract();
+    }
+
+    public static CreateContract getUniqueInstance() {
+        if(uniqueInstance == null)
+            uniqueInstance = new CreateContract();
+
+        return uniqueInstance;
+    }
+
     public RentContract newContract(int duration, Car car, Client client){
 //      Car, Client, Manager, Insurance, DealerBranch, Payment
         rentContract = new RentContract();
@@ -37,7 +43,7 @@ public class CreateContract {
     private double calculatePayment(Car car, int duration, int insuranceCost) {
         double payment=0;
 
-
+        //TODO - finish logic
 
         return payment;
     }
